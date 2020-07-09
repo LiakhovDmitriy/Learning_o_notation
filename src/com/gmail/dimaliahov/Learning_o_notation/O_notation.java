@@ -7,9 +7,32 @@ public class O_notation {
 //        bigO_n (довжина масиву);
 //        bigO_n2 (довжина масивів);
 
-        double time = bigO_1(0,100 );
+        double time = bigO_1(0, 100);
         System.out.println(time);
 
+        System.out.println();
+        System.out.println();
+        int a[] = {2, 5, 7, 9, 20, 23, 45, 67, 75, 80, 90};
+
+        int g = runBinarySearchIteratively(a, 90, 0, 10);
+        System.out.println(g + " по цьому індексу знаходиться задане число.");
+
+        System.out.println();
+        System.out.println();
+
+//        Більше 50 краще не вписувать, 50 - 12586269025
+//                                      40 - 102334155
+//                                      40 - 832040
+//                                      20 - 6765
+//                                      10 - 55
+        long h = fibonacci(10);
+        System.out.println(h);
+
+        System.out.println();
+        System.out.println();
+
+        int u = factorial(5);
+        System.out.println(u);
 
 
 //        Для bigO_1
@@ -35,7 +58,7 @@ public class O_notation {
 
         double time = (end - start) / 1000;
 
-        System.out.print("При a[" + element+ "], час виконання, в мікро секундах - ");
+        System.out.print("При a[" + element + "], час виконання, в мікро секундах - ");
         return time;
     }
 
@@ -58,6 +81,7 @@ public class O_notation {
         System.out.print("При a[" + lengthMas + "], час виконання, в мікро секундах - ");
         return time;
     }
+
     //Прохід по циклу в циклі
     public static double bigO_n2(int lengthMas) {
 
@@ -71,17 +95,49 @@ public class O_notation {
         double start = System.nanoTime();
         for (int i = 0; a.length > i; i++) {
             for (int j = 0; a.length > j; j++) {
-                sum = sum+a[i][j];
+                sum = sum + a[i][j];
             }
         }
         double end = System.nanoTime();
 
         double time = (end - start) / 1000000000;
 
-        System.out.print("При a[" + lengthMas + "], час виконання, в секундах " );
+        System.out.print("При a[" + lengthMas + "], час виконання, в секундах ");
         return time;
     }
 
+    //    Бінарний пошук
+    public static int runBinarySearchIteratively(int[] sortedArray, int key, int low, int high) {
+        int index = Integer.MAX_VALUE;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (sortedArray[mid] < key) {
+                low = mid + 1;
+            } else if (sortedArray[mid] > key) {
+                high = mid - 1;
+            } else if (sortedArray[mid] == key) {
+                index = mid;
+                break;
+            }
+        }
+        return index;
+    }
+
+    //    Число фібоначі, це bigO (2^n)
+    public static long fibonacci(long num) {
+        if (num <= 1) return num;
+        return fibonacci(num - 2) + fibonacci(num - 1);
+    }
+
+    //  Факторіал
+    public static int factorial(int n) {
+        int result = 1;
+        for (int i = 1; i <= n; i++) {
+            result = result * i;
+        }
+        return result;
+    }
 
 
     public static double average(double[] mas) {
